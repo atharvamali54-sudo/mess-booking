@@ -35,7 +35,10 @@ export default function StudentView({ messes, onPlaceOrder, subscriptions, onSki
 
   // Filtered messes
   const filteredMesses = messes.filter(m => {
-    if (filter === 'pureVeg') return m.pureVeg;
+    if (filter === 'veg') return m.pureVeg || m.categories?.includes('veg');
+    if (filter === 'nonveg') return !m.pureVeg || m.categories?.includes('nonveg');
+    if (filter === 'snacks') return m.hasSnacks || (m.snacks && m.snacks.length > 0);
+    if (filter === 'biryani') return m.hasBiryani || m.type?.toLowerCase().includes('biryani') || m.categories?.includes('biryani');
     if (filter === 'under80') return m.dailyMealPrice <= 80;
     return true;
   });
@@ -191,31 +194,55 @@ export default function StudentView({ messes, onPlaceOrder, subscriptions, onSki
         <div className="space-y-6">
           {/* Filters Bar */}
           <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-xl border border-slate-200">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="text-xs font-semibold text-slate-500">फिल्टर:</span>
               <button 
                 onClick={() => setFilter('all')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
-                  filter === 'all' ? 'bg-orange-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 ${
+                  filter === 'all' ? 'bg-orange-600 text-white shadow-sm' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                 }`}
               >
-                सर्व मेस (All)
+                🍱 सर्व (All)
               </button>
               <button 
-                onClick={() => setFilter('pureVeg')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
-                  filter === 'pureVeg' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                onClick={() => setFilter('veg')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 ${
+                  filter === 'veg' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200'
                 }`}
               >
-                🌱 शुद्ध शाकाहारी (Pure Veg)
+                🌱 शाकाहारी (Veg)
+              </button>
+              <button 
+                onClick={() => setFilter('nonveg')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 ${
+                  filter === 'nonveg' ? 'bg-rose-600 text-white shadow-sm' : 'bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200'
+                }`}
+              >
+                🍗 मांसाहारी (Non-Veg)
+              </button>
+              <button 
+                onClick={() => setFilter('snacks')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 ${
+                  filter === 'snacks' ? 'bg-amber-600 text-white shadow-sm' : 'bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200'
+                }`}
+              >
+                ☕ स्नॅक्स (Snacks)
+              </button>
+              <button 
+                onClick={() => setFilter('biryani')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 ${
+                  filter === 'biryani' ? 'bg-purple-600 text-white shadow-sm' : 'bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200'
+                }`}
+              >
+                🍲 बिर्याणी (Biryani)
               </button>
               <button 
                 onClick={() => setFilter('under80')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
-                  filter === 'under80' ? 'bg-blue-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 ${
+                  filter === 'under80' ? 'bg-blue-600 text-white shadow-sm' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                 }`}
               >
-                💰 ₹80 किंवा त्यापेक्षा कमी
+                💰 ₹80 बजेट
               </button>
             </div>
             <div className="text-xs text-slate-500 font-medium">
