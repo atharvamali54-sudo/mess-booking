@@ -1,49 +1,44 @@
-// Initial Mock Data for Mess Booking Platform
+// Initial Mock Data for Mess, Snacks, Biryani & Cake Platform
 
 export const initialMesses = [
+  // 1. MESS (Pure Veg & Non-Veg Messes with Monthly Pass & Thali)
   {
     id: 'mess-1',
     name: 'माऊली मेस आणि खानावळ (Mauli Mess)',
     ownerName: 'दत्तात्रय पाटील (Dattatray Patil)',
     ownerPhone: '+91 98765 43210',
-    type: 'Veg & Non-Veg',
+    type: 'Veg & Non-Veg Mess',
+    categoryType: 'mess', // 'mess', 'snacks', 'biryani', 'cake'
     pureVeg: false,
-    categories: ['veg', 'nonveg', 'snacks'],
-    hasBiryani: true,
-    hasSnacks: true,
+    categories: ['veg', 'nonveg'],
+    hasBiryani: false,
+    hasSnacks: false,
     rating: 4.8,
     reviewsCount: 142,
-    location: 'कॉलेज रोड, बस स्टँड जवळ (Near College Road)',
+    location: 'कॉलेज रोड, बस स्टँड जवळ',
     distance: '0.4 km',
     image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&auto=format&fit=crop&q=80',
     monthlyPrice: 2800,
     dailyMealPrice: 80,
-    deliveryExtraCharge: 5, // Order kelays 80 + 5 = 85 rs
+    deliveryExtraCharge: 5,
     todayLunch: {
       sabji1: 'मटकी उसळ (Matki Usal)',
       sabji2: 'पनीर बटर मसाला (Paneer Butter)',
-      roti: '३ चपाती / भाकरी (3 Chapati / Bhakri)',
-      rice: 'जिरा राईस + वरण (Jeera Rice & Dal)',
+      roti: '३ चपाती / भाकरी',
+      rice: 'जिरा राईस + वरण',
       sweet: 'गुलाबजामुन (Gulab Jamun)',
-      specialDish: 'दम बिर्याणी स्पेशल (दुपारी उपलब्ध)',
       available: true,
       time: '12:00 PM - 03:00 PM'
     },
     todayDinner: {
-      sabji1: 'शेव भाजी (झणझणीत) (Shev Bhaji)',
-      sabji2: 'सुकी बटाटा भाजी (Sukhi Batata)',
-      roti: '४ गरम चपात्या (4 Hot Chapatis)',
-      rice: 'मसाले भात + ताक (Masale Bhat & Taak)',
+      sabji1: 'शेव भाजी (झणझणीत)',
+      sabji2: 'सुकी बटाटा भाजी',
+      roti: '४ गरम चपात्या',
+      rice: 'मसाले भात + ताक',
       available: true,
       time: '07:30 PM - 10:30 PM'
     },
-    snacks: [
-      { id: 's1', name: 'कांदा पोहे (Kanda Pohe)', price: 25, available: true },
-      { id: 's2', name: 'मिसळ पाव (Misal Pav)', price: 50, available: true },
-      { id: 's3', name: 'वडा पाव (२ नग) (Vada Pav 2pcs)', price: 30, available: true },
-      { id: 's4', name: 'स्पेशल चहा (Special Tea)', price: 15, available: true },
-    ],
-    features: ['दम बिर्याणी स्पेशल', 'Unlimited Rice & Dal', 'रविवार चिकन थाळी', 'Free Clean RO Water'],
+    features: ['Unlimited Rice & Dal', 'रविवार चिकन थाळी', 'Free Clean RO Water', 'मासिक पास उपलब्ध'],
     subscribersCount: 48
   },
   {
@@ -51,14 +46,15 @@ export const initialMesses = [
     name: 'अन्नपूर्णा शुद्ध शाकाहारी मेस (Annapurna Pure Veg)',
     ownerName: 'सौ. अनिता कुलकर्णी (Anita Kulkarni)',
     ownerPhone: '+91 98220 11223',
-    type: 'Pure Veg',
+    type: 'Pure Veg Mess',
+    categoryType: 'mess',
     pureVeg: true,
-    categories: ['veg', 'snacks'],
+    categories: ['veg'],
     hasBiryani: false,
-    hasSnacks: true,
+    hasSnacks: false,
     rating: 4.9,
     reviewsCount: 210,
-    location: 'हॉस्टेल गल्ली क्र. ३ (Hostel Lane 3)',
+    location: 'हॉस्टेल गल्ली क्र. ३',
     distance: '0.8 km',
     image: 'https://images.unsplash.com/photo-1613292443284-c774439c1481?w=600&auto=format&fit=crop&q=80',
     monthlyPrice: 2600,
@@ -67,8 +63,8 @@ export const initialMesses = [
     todayLunch: {
       sabji1: 'भेंडी फ्राय (Bhendi Fry)',
       sabji2: 'दाल तडका (Dal Tadka)',
-      roti: '४ फुलके (4 Ghee Phulkas)',
-      rice: 'स्टीम राईस (Steam Rice)',
+      roti: '४ फुलके (Ghee Phulkas)',
+      rice: 'स्टीम राईस',
       sweet: 'खीर (Kheer)',
       available: true,
       time: '12:30 PM - 03:00 PM'
@@ -76,32 +72,28 @@ export const initialMesses = [
     todayDinner: {
       sabji1: 'मेथी भाजी (Methi Bhaji)',
       sabji2: 'कढी खिचडी (Kadhi Khichdi)',
-      roti: '३ चपाती (3 Chapati)',
-      rice: 'बासमती राईस (Basmati Rice)',
+      roti: '३ चपाती',
+      rice: 'बासमती राईस',
       available: true,
       time: '08:00 PM - 10:30 PM'
     },
-    snacks: [
-      { id: 's5', name: 'उपमा / साबुदाणा खिचडी', price: 35, available: true },
-      { id: 's6', name: 'इडली सांबार (Idli Sambar)', price: 40, available: true },
-      { id: 's6b', name: 'गरम पोहे + चहा कॉम्बो', price: 35, available: true }
-    ],
     features: ['१००% शुद्ध शाकाहारी', 'घरगुती चव (Home Style)', 'कमी तेल-मसाले', 'Clean Kitchen'],
     subscribersCount: 65
   },
   {
     id: 'mess-3',
-    name: 'सह्याद्री खानपान & स्नॅक्स सेंटर (Sahyadri Food Hub)',
+    name: 'सह्याद्री खानपान मेस (Sahyadri Food Hub)',
     ownerName: 'गणेश शिंदे (Ganesh Shinde)',
     ownerPhone: '+91 97654 98765',
-    type: 'Veg & Non-Veg',
+    type: 'Veg & Non-Veg Mess',
+    categoryType: 'mess',
     pureVeg: false,
-    categories: ['veg', 'nonveg', 'snacks'],
+    categories: ['veg', 'nonveg'],
     hasBiryani: false,
-    hasSnacks: true,
+    hasSnacks: false,
     rating: 4.6,
     reviewsCount: 88,
-    location: 'शिवाजी पुतळा चौक (Shivaji Chowk)',
+    location: 'शिवाजी पुतळा चौक',
     distance: '1.2 km',
     image: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=600&auto=format&fit=crop&q=80',
     monthlyPrice: 3000,
@@ -123,149 +115,126 @@ export const initialMesses = [
       available: true,
       time: '07:30 PM - 11:00 PM'
     },
-    snacks: [
-      { id: 's7', name: 'भुर्जी पाव (Bhurji Pav)', price: 45, available: true },
-      { id: 's8', name: 'ऑम्लेट पाव (Omelette Pav)', price: 40, available: true },
-      { id: 's9', name: 'फ्रेंच फ्राईज / कटलेट', price: 50, available: true }
-    ],
     features: ['झणझणीत कोल्हापुरी जेवण', 'Late Night Dinner', 'Fast Delivery', 'Student Discount'],
     subscribersCount: 32
   },
+
+  // 2. SNACKS SHOPS (Campus Vadapav, Anna Idli, etc. - No Monthly Pass, Direct Menu Items with Prices)
   {
-    id: 'mess-4',
-    name: 'रॉयल बिर्याणी & कबाब कट्टा (Royal Biryani House)',
-    ownerName: 'इम्रान शेख (Imran Shaikh)',
-    ownerPhone: '+91 91234 56789',
-    type: 'Biryani Special',
-    pureVeg: false,
-    categories: ['nonveg', 'biryani'],
-    hasBiryani: true,
-    hasSnacks: false,
-    rating: 4.9,
-    reviewsCount: 320,
-    location: 'विद्यापीठ गेट समोर (Opposite University Gate)',
-    distance: '0.6 km',
-    image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&auto=format&fit=crop&q=80',
-    monthlyPrice: 3500,
-    dailyMealPrice: 100,
-    deliveryExtraCharge: 5,
-    todayLunch: {
-      sabji1: 'हैदराबादी चिकन दम बिर्याणी (Hyderabadi Biryani)',
-      sabji2: 'व्हेज दम बिर्याणी + रायता (Veg Biryani & Raita)',
-      roti: 'रुमाली रोटी (२ नग) (Rumali Roti)',
-      rice: 'अस्सल बासमती दम राईस',
-      sweet: 'शाही तुकडा (Shahi Tukda)',
-      specialDish: 'अस्सल मटका दम बिर्याणी',
-      available: true,
-      time: '12:00 PM - 04:00 PM'
-    },
-    todayDinner: {
-      sabji1: 'स्पेशल चिकन फ्राय बिर्याणी (Chicken Fry Biryani)',
-      sabji2: 'पनीर बिर्याणी / दाल मखनी',
-      roti: 'बटर नान (२ नग)',
-      rice: 'बिर्याणी राईस + सालन ग्रेव्ही',
-      available: true,
-      time: '07:00 PM - 11:30 PM'
-    },
-    snacks: [
-      { id: 'b1', name: 'हाफ चिकन बिर्याणी', price: 90, available: true },
-      { id: 'b2', name: 'व्हेज बिर्याणी विथ रायता', price: 80, available: true },
-      { id: 'b3', name: 'चिकन कबाब (४ नग)', price: 70, available: true }
-    ],
-    features: ['स्पेशल दम बिर्याणी', 'मोफत सालन व रायता', 'गरमागरम पॅकिंग', 'Late Night Delivery'],
-    subscribersCount: 55
-  },
-  {
-    id: 'mess-5',
-    name: 'कट्टा स्नॅक्स & फास्ट फूड (Katta Snacks Corner)',
-    ownerName: 'सचिन जाधव (Sachin Jadhav)',
-    ownerPhone: '+91 99887 76655',
-    type: 'Snacks & Quick Bites',
+    id: 'snack-1',
+    name: 'कॅम्पस वडापाव & मिसळ सेंटर (Campus Vadapav)',
+    ownerName: 'सचिन गायकवाड (Sachin Gaikwad)',
+    ownerPhone: '+91 98888 11111',
+    type: 'Snacks Corner',
+    categoryType: 'snacks',
     pureVeg: true,
     categories: ['veg', 'snacks'],
     hasBiryani: false,
     hasSnacks: true,
-    rating: 4.7,
-    reviewsCount: 175,
-    location: 'लायब्ररी चौक (Library Chowk)',
-    distance: '0.3 km',
+    hasCake: false,
+    rating: 4.9,
+    reviewsCount: 380,
+    location: 'कॉलेज गेट क्र. २ (Campus Gate)',
+    distance: '0.2 km',
     image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&auto=format&fit=crop&q=80',
-    monthlyPrice: 2200,
-    dailyMealPrice: 60,
     deliveryExtraCharge: 5,
-    todayLunch: {
-      sabji1: 'छोले भटुरे (२ भटुरे + छोले) (Chole Bhature)',
-      sabji2: 'दाल खिचडी तडका (Dal Khichdi)',
-      roti: '२ पराठे / भटुरे',
-      rice: 'मसाला खिचडी',
-      sweet: 'गुलाबजामुन',
-      available: true,
-      time: '11:00 AM - 04:00 PM'
-    },
-    todayDinner: {
-      sabji1: 'पाव भाजी (२ बटर पाव) (Pav Bhaji)',
-      sabji2: 'शेव शेवगा मसाला',
-      roti: '३ चपात्या / पाव',
-      rice: 'तवा पुलाव',
-      available: true,
-      time: '06:00 PM - 11:00 PM'
-    },
-    snacks: [
-      { id: 'k1', name: 'स्पेशल कोल्हापुरी मिसळ पाव', price: 50, available: true },
-      { id: 'k2', name: 'गरमागरम वडा पाव (२)', price: 30, available: true },
-      { id: 'k3', name: 'चीज मॅगी / अंडा मॅगी', price: 40, available: true },
-      { id: 'k4', name: 'कांदा भजी / बटाटा भजी', price: 35, available: true },
-      { id: 'k5', name: 'मसाला चहा / कॉफी', price: 15, available: true }
-    ],
-    features: ['ऑल-डे स्नॅक्स उपलब्ध', 'झटपट डिलिव्हरी', 'बजेट फ्रेंडली', 'चहा-कॉफी कट्टा'],
-    subscribersCount: 40
+    features: ['गरमागरम क्रिस्पी वडापाव', 'झणझणीत कट मिसळ', 'चहा-नाष्टा कट्टा', 'Fast Pickup & Delivery'],
+    menuItems: [
+      { id: 'v1', name: 'स्पेशल कॅम्पस वडापाव (१ नग)', price: 18, image: '🍔' },
+      { id: 'v2', name: 'चीज वडापाव (Cheese Vadapav)', price: 30, image: '🧀' },
+      { id: 'v3', name: 'उकडीचे गरमागरम पोहे', price: 25, image: '🥣' },
+      { id: 'v4', name: 'स्पेशल कट मिसळ पाव (२ पाव)', price: 50, image: '🍲' },
+      { id: 'v5', name: 'कांदा भजी प्लेट (Kanda Bhaji)', price: 35, image: '🧅' },
+      { id: 'v6', name: 'अमृततुल्य स्पेशल चहा (Tea)', price: 12, image: '☕' }
+    ]
   },
   {
-    id: 'mess-6',
-    name: 'सेलिब्रेशन केक्स & पेस्ट्री कॉर्नर (Celebration Cakes & Bakery)',
+    id: 'snack-2',
+    name: 'अण्णा साऊथ इंडियन इडली & डोसा (Anna Idli Center)',
+    ownerName: 'अण्णा मुरुगन (Anna Murugan)',
+    ownerPhone: '+91 97777 22222',
+    type: 'South Indian Snacks',
+    categoryType: 'snacks',
+    pureVeg: true,
+    categories: ['veg', 'snacks'],
+    hasBiryani: false,
+    hasSnacks: true,
+    hasCake: false,
+    rating: 4.8,
+    reviewsCount: 290,
+    location: 'हॉस्टेल समोर, मेन रोड',
+    distance: '0.3 km',
+    image: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=600&auto=format&fit=crop&q=80',
+    deliveryExtraCharge: 5,
+    features: ['अस्सल सांबार व खोबरे चटणी', 'गरमागरम मऊ इडली', 'क्रिस्पी बटर डोसा', 'Instant Parcel'],
+    menuItems: [
+      { id: 'a1', name: 'मऊ इडली सांबार (२ नग)', price: 35, image: '⚪' },
+      { id: 'a2', name: 'मेदू वडा सांबार (२ नग)', price: 45, image: '🍩' },
+      { id: 'a3', name: 'मसाला डोसा (Masala Dosa)', price: 60, image: '🥞' },
+      { id: 'a4', name: 'बटर उत्तपम (Butter Uttapam)', price: 55, image: '🍕' },
+      { id: 'a5', name: 'इडली + वडा कॉम्बो (१+१)', price: 40, image: '🍱' },
+      { id: 'a6', name: 'फिल्टर कॉफी (South Filter Coffee)', price: 20, image: '☕' }
+    ]
+  },
+
+  // 3. BIRYANI SHOPS (Biryani Center - Direct Menu Items with Prices, No Mess Thali / Pass)
+  {
+    id: 'biryani-1',
+    name: 'रॉयल हैदराबादी दम बिर्याणी हाऊस (Royal Biryani)',
+    ownerName: 'इम्रान शेख (Imran Shaikh)',
+    ownerPhone: '+91 91234 56789',
+    type: 'Biryani Special',
+    categoryType: 'biryani',
+    pureVeg: false,
+    categories: ['nonveg', 'biryani'],
+    hasBiryani: true,
+    hasSnacks: false,
+    hasCake: false,
+    rating: 4.9,
+    reviewsCount: 320,
+    location: 'विद्यापीठ गेट समोर',
+    distance: '0.6 km',
+    image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&auto=format&fit=crop&q=80',
+    deliveryExtraCharge: 5,
+    features: ['अस्सल बासमती दम बिर्याणी', 'मोफत सालन ग्रेव्ही & रायता', 'गरमागरम फॉइल पॅकिंग', 'Late Night Delivery'],
+    menuItems: [
+      { id: 'b1', name: 'चिकन दम बिर्याणी (हाफ)', price: 100, image: '🍗' },
+      { id: 'b2', name: 'चिकन दम बिर्याणी (फुल थाळी)', price: 160, image: '🍛' },
+      { id: 'b3', name: 'व्हेज दम बिर्याणी विथ रायता', price: 90, image: '🥦' },
+      { id: 'b4', name: 'अंडा बिर्याणी (Egg Biryani)', price: 95, image: '🥚' },
+      { id: 'b5', name: 'चिकन कबाब फ्राय (४ नग)', price: 80, image: '🍢' },
+      { id: 'b6', name: 'शाही तुकडा / फिरनी स्वीट', price: 40, image: '🍮' }
+    ]
+  },
+
+  // 4. CAKE & BAKERY SHOPS (Cake & Pastry Shop - Direct Menu Items with Prices, No Mess Thali / Pass)
+  {
+    id: 'cake-1',
+    name: 'सेलिब्रेशन केक्स & पेस्ट्री कॉर्नर (Celebration Cakes)',
     ownerName: 'प्रवीण मोरे (Praveen More)',
     ownerPhone: '+91 95555 44433',
     type: 'Cakes & Bakery',
+    categoryType: 'cake',
     pureVeg: true,
-    categories: ['veg', 'cake', 'snacks'],
+    categories: ['veg', 'cake'],
     hasCake: true,
     hasBiryani: false,
-    hasSnacks: true,
+    hasSnacks: false,
     rating: 4.9,
     reviewsCount: 280,
-    location: 'कॉलेज कॉर्नर, मुख्य रस्ता (College Corner)',
+    location: 'कॉलेज कॉर्नर, मुख्य रस्ता',
     distance: '0.5 km',
     image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&auto=format&fit=crop&q=80',
-    monthlyPrice: 1500,
-    dailyMealPrice: 150,
     deliveryExtraCharge: 5,
-    todayLunch: {
-      sabji1: '१००% एग्गलेस फ्रेश केक स्पेशल (Eggless Fresh Cakes)',
-      sabji2: 'चॉकलेट ट्रफल & ब्लॅक फॉरेस्ट पेस्ट्री',
-      roti: 'डोनट्स (२ नग) / कपकेक्स',
-      rice: 'बर्थडे स्पेशल डिझायनर केक्स',
-      sweet: 'रेड वेल्वेट पेस्ट्री',
-      specialDish: 'चॉकलेट लावा केक & ब्राउनी विथ आईस्क्रीम',
-      available: true,
-      time: '10:00 AM - 11:00 PM'
-    },
-    todayDinner: {
-      sabji1: 'मिडनाईट बर्थडे केक डिलिव्हरी (Midnight Cake)',
-      sabji2: 'पायनापल & बटरस्कॉच केक (१/२ kg)',
-      roti: 'गिफ्ट हॅम्पर & मेणबत्त्या',
-      rice: 'चोको चिप ब्राउनी',
-      available: true,
-      time: '05:00 PM - 12:00 AM'
-    },
-    snacks: [
-      { id: 'c1', name: 'चॉकलेट ट्रफल पेस्ट्री (Choco Truffle)', price: 40, available: true },
-      { id: 'c2', name: 'ब्लॅक फॉरेस्ट केक (१/२ kg)', price: 250, available: true },
-      { id: 'c3', name: 'चॉकलेट लावा केक (Choco Lava)', price: 60, available: true },
-      { id: 'c4', name: 'रेड वेल्वेट कपकेक (२ नग)', price: 50, available: true },
-      { id: 'c5', name: 'हॉट ब्राउनी विथ चॉकलेट सॉस', price: 70, available: true }
-    ],
-    features: ['१००% Eggless Fresh Cakes', 'मिडनाईट बर्थडे डिलिव्हरी', 'Custom Photo Cake', 'Instant Delivery'],
-    subscribersCount: 25
+    features: ['१००% Eggless Fresh Cakes', 'मिडनाईट बर्थडे डिलिव्हरी', 'Free Candles & Knife', 'Instant Pickup & Delivery'],
+    menuItems: [
+      { id: 'c1', name: 'चॉकलेट ट्रफल पेस्ट्री (Choco Truffle)', price: 40, image: '🍫' },
+      { id: 'c2', name: 'ब्लॅक फॉरेस्ट केक (१/२ kg)', price: 250, image: '🎂' },
+      { id: 'c3', name: 'चॉकलेट लावा केक (Choco Lava)', price: 60, image: '🧁' },
+      { id: 'c4', name: 'रेड वेल्वेट पेस्ट्री (Red Velvet)', price: 50, image: '🍰' },
+      { id: 'c5', name: 'पायनापल फ्रेश केक (१/२ kg)', price: 220, image: '🍍' },
+      { id: 'c6', name: 'हॉट ब्राउनी विथ चॉकलेट सॉस', price: 70, image: '🥮' }
+    ]
   }
 ];
 
@@ -276,13 +245,13 @@ export const initialOrders = [
     studentPhone: '9876543210',
     messId: 'mess-1',
     messName: 'माऊली मेस आणि खानावळ',
-    mealType: 'Full Lunch Thali (दुपारची थाळी)',
+    mealType: 'दुपारची थाळी (Full Lunch Thali)',
     quantity: 1,
-    mode: 'delivery', // 'delivery' or 'pickup'
+    mode: 'delivery',
     basePrice: 80,
     deliveryFee: 5,
     totalAmount: 85,
-    status: 'Ready', // 'Pending', 'Preparing', 'Ready', 'Delivered'
+    status: 'Ready',
     tokenNumber: 'TK-14',
     address: 'रूम नं. १०४, ओंकार हॉस्टेल, कॉलेज रोड',
     orderTime: '12:35 PM',
@@ -292,17 +261,17 @@ export const initialOrders = [
     id: 'ORD-9022',
     studentName: 'रोहित पाटील (Rohit)',
     studentPhone: '9822334455',
-    messId: 'mess-1',
-    messName: 'माऊली मेस आणि खानावळ',
-    mealType: 'Full Lunch Thali (Self-Pickup)',
-    quantity: 1,
+    messId: 'snack-1',
+    messName: 'कॅम्पस वडापाव & मिसळ सेंटर',
+    mealType: 'स्पेशल कॅम्पस वडापाव (१ नग)',
+    quantity: 2,
     mode: 'pickup',
-    basePrice: 80,
+    basePrice: 36,
     deliveryFee: 0,
-    totalAmount: 80,
-    status: 'Pending',
+    totalAmount: 36,
+    status: 'Preparing',
     tokenNumber: 'TK-15',
-    address: 'मेसवर स्वतः येऊन घेणार (Self-Pickup at Mess)',
+    address: 'मेसवर स्वतः येऊन घेणार (Self-Pickup at Shop)',
     orderTime: '12:45 PM',
     paymentStatus: 'Cash on Pickup'
   }

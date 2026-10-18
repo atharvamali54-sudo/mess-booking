@@ -29,13 +29,13 @@ export default function MessOwnerDashboard({
 
   const [activeTab, setActiveTab] = useState('orders'); // 'orders', 'menu', 'subscribers'
   const [editMenuForm, setEditMenuForm] = useState({
-    sabji1: activeMess.todayLunch.sabji1,
-    sabji2: activeMess.todayLunch.sabji2,
-    roti: activeMess.todayLunch.roti,
-    rice: activeMess.todayLunch.rice,
-    sweet: activeMess.todayLunch.sweet || '',
-    dailyMealPrice: activeMess.dailyMealPrice,
-    deliveryExtraCharge: activeMess.deliveryExtraCharge
+    sabji1: activeMess.todayLunch?.sabji1 || '',
+    sabji2: activeMess.todayLunch?.sabji2 || '',
+    roti: activeMess.todayLunch?.roti || '',
+    rice: activeMess.todayLunch?.rice || '',
+    sweet: activeMess.todayLunch?.sweet || '',
+    dailyMealPrice: activeMess.dailyMealPrice || 0,
+    deliveryExtraCharge: activeMess.deliveryExtraCharge || 5
   });
   const [menuSavedAlert, setMenuSavedAlert] = useState(false);
 
@@ -88,13 +88,13 @@ export default function MessOwnerDashboard({
               const m = messes.find(item => item.id === e.target.value);
               if (m) {
                 setEditMenuForm({
-                  sabji1: m.todayLunch.sabji1,
-                  sabji2: m.todayLunch.sabji2,
-                  roti: m.todayLunch.roti,
-                  rice: m.todayLunch.rice,
-                  sweet: m.todayLunch.sweet || '',
-                  dailyMealPrice: m.dailyMealPrice,
-                  deliveryExtraCharge: m.deliveryExtraCharge
+                  sabji1: m.todayLunch?.sabji1 || '',
+                  sabji2: m.todayLunch?.sabji2 || '',
+                  roti: m.todayLunch?.roti || '',
+                  rice: m.todayLunch?.rice || '',
+                  sweet: m.todayLunch?.sweet || '',
+                  dailyMealPrice: m.dailyMealPrice || 0,
+                  deliveryExtraCharge: m.deliveryExtraCharge || 5
                 });
               }
             }}
