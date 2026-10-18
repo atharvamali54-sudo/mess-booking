@@ -219,6 +219,53 @@ export const initialMesses = [
     ],
     features: ['ऑल-डे स्नॅक्स उपलब्ध', 'झटपट डिलिव्हरी', 'बजेट फ्रेंडली', 'चहा-कॉफी कट्टा'],
     subscribersCount: 40
+  },
+  {
+    id: 'mess-6',
+    name: 'सेलिब्रेशन केक्स & पेस्ट्री कॉर्नर (Celebration Cakes & Bakery)',
+    ownerName: 'प्रवीण मोरे (Praveen More)',
+    ownerPhone: '+91 95555 44433',
+    type: 'Cakes & Bakery',
+    pureVeg: true,
+    categories: ['veg', 'cake', 'snacks'],
+    hasCake: true,
+    hasBiryani: false,
+    hasSnacks: true,
+    rating: 4.9,
+    reviewsCount: 280,
+    location: 'कॉलेज कॉर्नर, मुख्य रस्ता (College Corner)',
+    distance: '0.5 km',
+    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&auto=format&fit=crop&q=80',
+    monthlyPrice: 1500,
+    dailyMealPrice: 150,
+    deliveryExtraCharge: 5,
+    todayLunch: {
+      sabji1: '१००% एग्गलेस फ्रेश केक स्पेशल (Eggless Fresh Cakes)',
+      sabji2: 'चॉकलेट ट्रफल & ब्लॅक फॉरेस्ट पेस्ट्री',
+      roti: 'डोनट्स (२ नग) / कपकेक्स',
+      rice: 'बर्थडे स्पेशल डिझायनर केक्स',
+      sweet: 'रेड वेल्वेट पेस्ट्री',
+      specialDish: 'चॉकलेट लावा केक & ब्राउनी विथ आईस्क्रीम',
+      available: true,
+      time: '10:00 AM - 11:00 PM'
+    },
+    todayDinner: {
+      sabji1: 'मिडनाईट बर्थडे केक डिलिव्हरी (Midnight Cake)',
+      sabji2: 'पायनापल & बटरस्कॉच केक (१/२ kg)',
+      roti: 'गिफ्ट हॅम्पर & मेणबत्त्या',
+      rice: 'चोको चिप ब्राउनी',
+      available: true,
+      time: '05:00 PM - 12:00 AM'
+    },
+    snacks: [
+      { id: 'c1', name: 'चॉकलेट ट्रफल पेस्ट्री (Choco Truffle)', price: 40, available: true },
+      { id: 'c2', name: 'ब्लॅक फॉरेस्ट केक (१/२ kg)', price: 250, available: true },
+      { id: 'c3', name: 'चॉकलेट लावा केक (Choco Lava)', price: 60, available: true },
+      { id: 'c4', name: 'रेड वेल्वेट कपकेक (२ नग)', price: 50, available: true },
+      { id: 'c5', name: 'हॉट ब्राउनी विथ चॉकलेट सॉस', price: 70, available: true }
+    ],
+    features: ['१००% Eggless Fresh Cakes', 'मिडनाईट बर्थडे डिलिव्हरी', 'Custom Photo Cake', 'Instant Delivery'],
+    subscribersCount: 25
   }
 ];
 

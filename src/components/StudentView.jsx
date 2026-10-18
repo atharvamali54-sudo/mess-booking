@@ -39,6 +39,7 @@ export default function StudentView({ messes, onPlaceOrder, subscriptions, onSki
     if (filter === 'nonveg') return !m.pureVeg || m.categories?.includes('nonveg');
     if (filter === 'snacks') return m.hasSnacks || (m.snacks && m.snacks.length > 0);
     if (filter === 'biryani') return m.hasBiryani || m.type?.toLowerCase().includes('biryani') || m.categories?.includes('biryani');
+    if (filter === 'cake') return m.hasCake || m.categories?.includes('cake') || m.type?.toLowerCase().includes('cake');
     if (filter === 'under80') return m.dailyMealPrice <= 80;
     return true;
   });
@@ -235,6 +236,14 @@ export default function StudentView({ messes, onPlaceOrder, subscriptions, onSki
                 }`}
               >
                 🍲 बिर्याणी (Biryani)
+              </button>
+              <button 
+                onClick={() => setFilter('cake')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 ${
+                  filter === 'cake' ? 'bg-pink-600 text-white shadow-sm' : 'bg-pink-50 text-pink-700 hover:bg-pink-100 border border-pink-200'
+                }`}
+              >
+                🎂 केक (Cake & Bakery)
               </button>
               <button 
                 onClick={() => setFilter('under80')}
