@@ -14,7 +14,10 @@ import {
   Minus, 
   AlertCircle,
   X,
-  Sparkles
+  Sparkles,
+  Eye,
+  ChevronRight,
+  BookOpen
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -23,6 +26,8 @@ export default function StudentView({ messes, onPlaceOrder, subscriptions, onSki
   const [filter, setFilter] = useState('all'); // 'all', 'pureVeg', 'under80'
   const [orderModalOpen, setOrderModalOpen] = useState(false);
   const [orderMess, setOrderMess] = useState(null);
+  const [menuModalOpen, setMenuModalOpen] = useState(false);
+  const [menuMess, setMenuMess] = useState(null);
   const [orderMode, setOrderMode] = useState('delivery'); // 'delivery' or 'pickup'
   const [orderQuantity, setOrderQuantity] = useState(1);
   const [selectedMealType, setSelectedMealType] = useState('lunch'); // 'lunch', 'dinner', or snack
@@ -299,35 +304,49 @@ export default function StudentView({ messes, onPlaceOrder, subscriptions, onSki
                       {mess.name}
                     </h3>
 
-                    {/* Today's Special Lunch Box */}
+                    {/* Menu Summary Box */}
                     <div className="bg-orange-50/70 border border-orange-100 rounded-xl p-3 text-xs space-y-1">
                       <div className="flex items-center justify-between text-orange-800 font-bold mb-1">
                         <span className="flex items-center gap-1">
-                          <Utensils className="w-3.5 h-3.5" /> आजचा दुपारचा मेनू:
+                          <Utensils className="w-3.5 h-3.5" /> 
+                          {mess.hasCake ? '🎂 आजचे स्पेशल केक्स:' : '🍛 आजचा दुपारचा मेनू:'}
                         </span>
                         <span className="text-[11px] text-slate-500 font-normal">{mess.todayLunch.time}</span>
                       </div>
-                      <p className="text-slate-700 font-medium">🍛 {mess.todayLunch.sabji1}, {mess.todayLunch.sabji2}</p>
-                      <p className="text-slate-600">🫓 {mess.todayLunch.roti} | 🍚 {mess.todayLunch.rice}</p>
+                      <p className="text-slate-700 font-medium">✨ {mess.todayLunch.sabji1}</p>
+                      <p className="text-slate-600 truncate">{mess.todayLunch.sabji2}</p>
                       {mess.todayLunch.sweet && (
-                        <p className="text-amber-700 font-semibold">✨ स्वीट: {mess.todayLunch.sweet}</p>
+                        <p className="text-amber-700 font-semibold">🍰 {mess.todayLunch.sweet}</p>
                       )}
                     </div>
+
+                    {/* "See Menu" Button */}
+                    <button
+                      onClick={() => {
+                        setMenuMess(mess);
+                        setMenuModalOpen(true);
+                      }}
+                      className="w-full py-2 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-900 font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-xs"
+                    >
+                      <BookOpen className="w-3.5 h-3.5 text-amber-700" />
+                      <span>संपूर्ण मेनू पहा (See Menu)</span>
+                      <ChevronRight className="w-3.5 h-3.5 text-amber-600 ml-auto" />
+                    </button>
 
                     {/* Price and Options Info */}
                     <div className="flex items-center justify-between pt-2 border-t border-slate-100">
                       <div>
-                        <div className="text-xs text-slate-500">रोजची थाळी दर:</div>
+                        <div className="text-xs text-slate-500">{mess.hasCake ? 'स्टार्टिंग दर:' : 'रोजची थाळी दर:'}</div>
                         <div className="text-lg font-black text-slate-800">
                           ₹{mess.dailyMealPrice}
-                          <span className="text-xs font-normal text-slate-500 ml-1">/ थाळी</span>
+                          <span className="text-xs font-normal text-slate-500 ml-1">{mess.hasCake ? '/ पीस' : '/ थाळी'}</span>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-xs text-slate-500">मासिक पास:</div>
+                        <div className="text-xs text-slate-500">{mess.hasCake ? 'पार्टी कॉम्बो:' : 'मासिक पास:'}</div>
                         <div className="text-sm font-bold text-orange-600">
                           ₹{mess.monthlyPrice}
-                          <span className="text-[11px] font-normal text-slate-500"> / महिना</span>
+                          <span className="text-[11px] font-normal text-slate-500">{mess.hasCake ? ' पासून' : ' / महिना'}</span>
                         </div>
                       </div>
                     </div>
@@ -557,6 +576,168 @@ export default function StudentView({ messes, onPlaceOrder, subscriptions, onSki
                 ऑर्डर कन्फर्म करा (Confirm ₹{(orderMess.dailyMealPrice * orderQuantity) + (orderMode === 'delivery' ? (orderMess.deliveryExtraCharge * orderQuantity) : 0)})
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* "See Menu" Detailed Modal */}
+      {menuModalOpen && menuMess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 relative my-8 animate-in fade-in zoom-in duration-200 max-h-[90vh] flex flex-col">
+            {/* Modal Header */}
+            <div className="flex items-start justify-between pb-4 border-b border-slate-100">
+              <div>
+                <span className="text-xs uppercase font-extrabold text-orange-600 tracking-wider">
+                  {menuMess.hasCake ? '🎂 केक आणि बेकरी मेनू कार्ड' : '🍱 संपूर्ण मेस मेनू कार्ड'}
+                </span>
+                <h2 className="text-xl font-black text-slate-800 mt-0.5">{menuMess.name}</h2>
+                <p className="text-xs text-slate-500 flex items-center gap-1 mt-1">
+                  <MapPin className="w-3.5 h-3.5 text-orange-500" /> {menuMess.location} ({menuMess.distance})
+                </p>
+              </div>
+              <button 
+                onClick={() => setMenuModalOpen(false)}
+                className="p-1.5 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Scrollable Body */}
+            <div className="flex-1 overflow-y-auto py-4 space-y-4 pr-1">
+              {/* Timing & Special Highlights */}
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs flex items-center justify-between">
+                <span className="font-bold text-amber-900 flex items-center gap-1.5">
+                  <Clock className="w-4 h-4 text-amber-600" /> वेळ: {menuMess.todayLunch.time}
+                </span>
+                <span className="text-emerald-700 font-bold bg-white px-2 py-0.5 rounded-md border border-amber-200">
+                  {menuMess.pureVeg ? '🌱 १००% Pure Veg' : '🍗 Veg / Non-Veg'}
+                </span>
+              </div>
+
+              {/* Today's Lunch Section */}
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs font-black uppercase text-slate-700 flex items-center gap-1.5">
+                    <Utensils className="w-3.5 h-3.5 text-orange-600" />
+                    {menuMess.hasCake ? 'आजचे स्पेशल केक्स (Special Cakes)' : 'दुपारचे जेवण (Lunch Thali)'}
+                  </h3>
+                  <span className="text-xs font-black text-orange-600">₹{menuMess.dailyMealPrice}</span>
+                </div>
+                <div className="space-y-1.5 text-xs text-slate-700 pt-1 border-t border-slate-200">
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">{menuMess.hasCake ? 'केक प्रकार १:' : 'भाजी १:'}</span>
+                    <span className="font-semibold text-slate-800">{menuMess.todayLunch.sabji1}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">{menuMess.hasCake ? 'केक प्रकार २:' : 'भाजी २:'}</span>
+                    <span className="font-semibold text-slate-800">{menuMess.todayLunch.sabji2}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">{menuMess.hasCake ? 'बेकरी आयटम्स:' : 'पोळी/भाकरी:'}</span>
+                    <span className="font-semibold text-slate-800">{menuMess.todayLunch.roti}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">{menuMess.hasCake ? 'डिझाईन प्रकार:' : 'राईस/भात:'}</span>
+                    <span className="font-semibold text-slate-800">{menuMess.todayLunch.rice}</span>
+                  </div>
+                  {menuMess.todayLunch.sweet && (
+                    <div className="flex justify-between text-amber-700 font-semibold bg-amber-50/80 p-1.5 rounded-md">
+                      <span>{menuMess.hasCake ? 'पेस्ट्री स्पेशल:' : 'गोड पदार्थ / स्वीट:'}</span>
+                      <span>{menuMess.todayLunch.sweet}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Dinner Section */}
+              {menuMess.todayDinner && (
+                <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xs font-black uppercase text-slate-700 flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5 text-blue-600" />
+                      {menuMess.hasCake ? 'रात्रीची पार्टी डिलिव्हरी (Midnight Menu)' : 'रात्रीचे जेवण (Dinner)'}
+                    </h3>
+                    <span className="text-[11px] text-slate-500">{menuMess.todayDinner.time}</span>
+                  </div>
+                  <div className="space-y-1.5 text-xs text-slate-700 pt-1 border-t border-slate-200">
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">आयटम १:</span>
+                      <span className="font-semibold text-slate-800">{menuMess.todayDinner.sabji1}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">आयटम २:</span>
+                      <span className="font-semibold text-slate-800">{menuMess.todayDinner.sabji2}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">स्पेशल:</span>
+                      <span className="font-semibold text-slate-800">{menuMess.todayDinner.roti}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Snacks & Extra Items Menu */}
+              {menuMess.snacks && menuMess.snacks.length > 0 && (
+                <div className="bg-orange-50/50 border border-orange-200 rounded-xl p-4 space-y-2.5">
+                  <h3 className="text-xs font-black uppercase text-orange-900 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-orange-600" />
+                    {menuMess.hasCake ? '🍰 उपलब्ध पेस्ट्री, केक व स्नॅक्स रेट लिस्ट:' : '☕ उपलब्ध स्नॅक्स & एक्सट्रा डिशेस:'}
+                  </h3>
+                  <div className="grid grid-cols-1 gap-2 pt-1">
+                    {menuMess.snacks.map(snack => (
+                      <div key={snack.id} className="flex items-center justify-between bg-white p-2.5 rounded-lg border border-orange-100 text-xs">
+                        <span className="font-medium text-slate-800">✓ {snack.name}</span>
+                        <span className="font-black text-orange-700 bg-orange-50 px-2 py-0.5 rounded-md">₹{snack.price}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Pricing & Features */}
+              <div className="bg-white border border-slate-200 rounded-xl p-3 text-xs space-y-1.5">
+                <div className="flex justify-between text-slate-600">
+                  <span>Self-Pickup दर:</span>
+                  <span className="font-bold text-slate-800">₹{menuMess.dailyMealPrice}</span>
+                </div>
+                <div className="flex justify-between text-slate-600">
+                  <span>Room Delivery / पॅकिंग:</span>
+                  <span className="font-bold text-orange-600">₹{menuMess.dailyMealPrice + menuMess.deliveryExtraCharge} (+₹{menuMess.deliveryExtraCharge})</span>
+                </div>
+                <div className="flex justify-between text-slate-600">
+                  <span>मासिक सबस्क्रिप्शन:</span>
+                  <span className="font-bold text-emerald-600">₹{menuMess.monthlyPrice} / महिना</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Action Buttons */}
+            <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
+              <button
+                onClick={() => {
+                  setMenuModalOpen(false);
+                  setOrderMode('pickup');
+                  handleOpenOrder(menuMess, 'lunch');
+                }}
+                className="flex items-center justify-center gap-1.5 py-2.5 rounded-xl border-2 border-orange-600 text-orange-600 font-bold text-xs hover:bg-orange-50 transition"
+              >
+                <Store className="w-4 h-4" />
+                Self-Pickup (₹{menuMess.dailyMealPrice})
+              </button>
+
+              <button
+                onClick={() => {
+                  setMenuModalOpen(false);
+                  setOrderMode('delivery');
+                  handleOpenOrder(menuMess, 'lunch');
+                }}
+                className="flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs shadow-md transition"
+              >
+                <Truck className="w-4 h-4" />
+                Order (+₹5)
+              </button>
+            </div>
           </div>
         </div>
       )}
