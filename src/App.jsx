@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   UtensilsCrossed, 
   GraduationCap, 
@@ -6,10 +6,12 @@ import {
   ShoppingBag, 
   Heart, 
   Share2, 
-  Phone,
-  Clock,
-  Sparkles,
-  Code
+  Phone, 
+  Clock, 
+  Sparkles, 
+  Code,
+  Download,
+  X
 } from 'lucide-react';
 import StudentView from './components/StudentView';
 import MessOwnerDashboard from './components/MessOwnerDashboard';
@@ -22,6 +24,34 @@ export default function App() {
   const [orders, setOrders] = useState(initialOrders);
   const [subscriptions, setSubscriptions] = useState(initialSubscriptions);
   const [ordersModalOpen, setOrdersModalOpen] = useState(false);
+  
+  // PWA Install Prompt State
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [showInstallBanner, setShowInstallBanner] = useState(false);
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstallBanner(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setShowInstallBanner(false);
+    }
+    setDeferredPrompt(null);
+  };
 
   // Place a new order
   const handlePlaceOrder = (newOrder) => {
@@ -56,6 +86,34 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
+      {/* PWA Install Banner */}
+      {showInstallBanner && (
+        <div className="bg-gradient-to-r from-orange-600 to-amber-600 text-white px-4 py-2.5 shadow-md flex items-center justify-between gap-3 text-xs sm:text-sm">
+          <div className="flex items-center gap-2">
+            <span className="p-1 rounded bg-white/20">📱</span>
+            <span className="font-semibold">
+              मोबाईल ॲपप्रमाणे वापरा! होम स्क्रीनवर इंस्टॉल करा (Install App)
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleInstallClick}
+              className="bg-white text-orange-700 hover:bg-orange-50 font-bold px-3 py-1 rounded-lg text-xs shadow transition flex items-center gap-1"
+            >
+              <Download className="w-3.5 h-3.5" />
+              इंस्टॉल करा
+            </button>
+            <button
+              onClick={() => setShowInstallBanner(false)}
+              className="text-white/80 hover:text-white p-1 rounded"
+              aria-label="Close"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Top Navigation Bar */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
@@ -77,7 +135,18 @@ export default function App() {
 
           {/* Right Header Navigation */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* "Your Orders" button (दिसणारा पर्याय) */}
+            {/* Install Button in Header if available */}
+            {deferredPrompt && (
+              <button
+                onClick={handleInstallClick}
+                className="hidden sm:flex items-center gap-1 px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition shadow-sm"
+              >
+                <Download className="w-4 h-4" />
+                <span>App Install</span>
+              </button>
+            )}
+
+            {/* "Your Orders" button */}
             <button
               onClick={() => setOrdersModalOpen(true)}
               className="relative flex items-center gap-1.5 px-3 py-2 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 text-xs font-bold transition shadow-sm"
@@ -155,7 +224,7 @@ export default function App() {
       <footer className="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <span className="font-bold text-slate-800">मेस बुकिंग प्लॅटफॉर्म</span> • घरगुती जेवण आणि स्नॅक्स बुकिंग
+            <span className="font-bold text-slate-800">मेस बुकिंग प्लॅटफॉर्म (PWA App)</span> • घरगुती जेवण आणि स्नॅक्स बुकिंग
           </div>
           <div className="flex items-center gap-4 text-slate-600">
             <span>Self-Pickup: ₹80</span>
