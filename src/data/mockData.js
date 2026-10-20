@@ -1,6 +1,47 @@
 // Initial Mock Data for Mess, Snacks, Biryani & Cake Platform
 
 export const initialMesses = [
+  {
+    id: 'mess-gharghuti',
+    name: 'आईची माया शुद्ध घरगुती खानावळ (Aai Chi Maya)',
+    ownerName: 'सौ. मंगला ताई जोशी (Mangala Joshi)',
+    ownerPhone: '+91 98900 12345',
+    type: 'शुद्ध घरगुती जेवण (Pure Home Style)',
+    categoryType: 'mess',
+    pureVeg: true,
+    isHomeStyle: true,
+    categories: ['veg', 'homestyle'],
+    hasBiryani: false,
+    hasSnacks: false,
+    rating: 5.0,
+    reviewsCount: 310,
+    location: 'सरस्वती कॉलनी, हॉस्टेल जवळ',
+    distance: '0.3 km',
+    image: 'https://images.unsplash.com/photo-1613292443284-c774439c1481?w=600&auto=format&fit=crop&q=80',
+    monthlyPrice: 2500,
+    dailyMealPrice: 70,
+    deliveryExtraCharge: 5,
+    todayLunch: {
+      sabji1: 'सुकी बटाटा भाजी + शेवगा रस्सा',
+      sabji2: 'वरण-भात विथ साजूक तूप',
+      roti: '४ गरम घरगुती फुलके (Ghee Chapati)',
+      rice: 'इंद्रायणी भात + लिंबू लोणचे',
+      sweet: 'गुळ-शेंगदाणा लाडू / शिरा',
+      available: true,
+      time: '12:00 PM - 03:00 PM'
+    },
+    todayDinner: {
+      sabji1: 'मुग डाळ खिचडी (कढी खिचडी स्पेशल)',
+      sabji2: 'मेथीची सुकी भाजी',
+      roti: '३ मऊ चपात्या',
+      rice: 'गरम ताक व पापड',
+      available: true,
+      time: '07:30 PM - 10:00 PM'
+    },
+    features: ['१००% घरगुती हातची चव', 'कमी तिखट, कमी तेल', 'घरचे साजूक तूप', 'आईसारखे प्रेमळ जेवण'],
+    subscribersCount: 72
+  },
+
   // 1. MESS (Pure Veg & Non-Veg Messes with Monthly Pass & Thali)
   {
     id: 'mess-1',
@@ -49,6 +90,7 @@ export const initialMesses = [
     type: 'Pure Veg Mess',
     categoryType: 'mess',
     pureVeg: true,
+    isHomeStyle: true,
     categories: ['veg'],
     hasBiryani: false,
     hasSnacks: false,
